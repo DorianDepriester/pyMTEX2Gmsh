@@ -1,0 +1,37 @@
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "pymtex2gmsh"
+version = "0.1.0"
+description = "Generate conforming 2D/3D meshes from EBSD data processed with the Python port of MTEX (mtex) and Gmsh"
+readme = "README.md"
+requires-python = ">=3.10"
+license = { text = "MIT" }
+authors = [{ name = "Dorian Depriester" }]
+keywords = ["EBSD", "MTEX", "gmsh", "mesh", "polycrystal", "FEA"]
+classifiers = [
+    "Intended Audience :: Science/Research",
+    "Programming Language :: Python :: 3",
+    "Topic :: Scientific/Engineering",
+]
+dependencies = [
+    "numpy",
+    "scipy",
+    "mtex>=1.0",
+]
+
+[project.optional-dependencies]
+mesh = ["gmsh>=4.11"]       # Gmsh Python SDK, used to run the meshing
+plot = ["matplotlib"]
+test = ["pytest", "gmsh>=4.11", "matplotlib"]
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+markers = [
+    "integration: tests that download sample data or run the Gmsh SDK",
+]
